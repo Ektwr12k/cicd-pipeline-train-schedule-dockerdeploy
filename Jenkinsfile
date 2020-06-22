@@ -29,7 +29,7 @@ pipeline {
             steps {
                 echo 'Pushing docker image'
                 script {
-                    docker.withRegistry('https://hub.docker.com/r/ektwr12k/linuxacademy', 'DockerHub') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'DockerHub') {
                         application.push("${env.BUILD_NUMBER}")
                         application.push("latest")
                     }
