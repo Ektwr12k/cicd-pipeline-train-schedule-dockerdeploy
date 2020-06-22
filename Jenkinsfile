@@ -49,6 +49,8 @@ pipeline {
                         try {
                             sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$PRODUCTION_SERVER \"docker stop train-schedule\""
                             sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$PRODUCTION_SERVER \"docker rm train-schedule\""
+                        } catch (err) {
+                            echo: 'caught error: $err'
                         }
                         sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$PRODUCTION_SERVER  \"docker run --restart always --name train-schedule -p 8080:8080 -d ektwr12k/train-schedule:${env.BUILD_NUMBER}\""
                     }
