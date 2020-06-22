@@ -16,7 +16,7 @@ pipeline {
                 echo 'Starting build docker image'
                 script {
                     application = docker.build("ektwr12k/train-schedule") 
-                    app.inside {
+                    application.inside {
                         sh 'echo $(curl localhost:8080)'
                     }
                 }
@@ -30,8 +30,8 @@ pipeline {
                 echo 'Pushing docker image'
                 script {
                     docker.withRegistry('https://hub.docker.com/r/ektwr12k/linuxacademy', 'DockerHub') {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
+                        application.push("${env.BUILD_NUMBER}")
+                        application.push("latest")
                     }
                 }
             }
